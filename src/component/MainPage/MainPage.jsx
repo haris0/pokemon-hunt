@@ -1,7 +1,7 @@
 import React from 'react';
 import { useQuery } from '@apollo/client';
 import {Link} from 'react-router-dom';
-import {GET_POKEMONS} from '../../queries'
+import {GET_POKEMONS} from '../../queries';
 
 function MainPage() {
   
@@ -14,7 +14,7 @@ function MainPage() {
 
   return (
     <div>
-      {loading && 
+      {loading &&
         <div>Loading...</div>
       }
       {error && 
