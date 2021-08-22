@@ -2,7 +2,7 @@ import React from "react";
 import {Flex} from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 
-const Header = props => {
+const Header = () => {
   return (
     <Flex {...header_flex}>
       <Flex align="center" mr={5}>
@@ -12,10 +12,6 @@ const Header = props => {
       </Flex>
     </Flex>
   );
-};
-
-Header.propTypes = {
-  
 };
 
 export default Header;

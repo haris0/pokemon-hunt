@@ -1,7 +1,7 @@
 import React from 'react';
 import { Container } from '@chakra-ui/react';
 
-const Page404 = props => {
+const Page404 = () => {
   return (
     <Container {...container_style} >
       Page Not Found
