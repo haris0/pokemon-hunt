@@ -1,6 +1,6 @@
 import React from 'react';
 import { useQuery } from '@apollo/client';
-
+import {Link} from 'react-router-dom';
 import {GET_POKEMONS} from '../../queries'
 
 function MainPage() {
@@ -24,7 +24,9 @@ function MainPage() {
       }
       {!loading && data && 
         data.pokemons.results.map(pokemon => (
-          <div key={pokemon.name}> {pokemon.name} </div>
+          <Link to={"/detail/" + pokemon.name} key={pokemon.name}>
+            <div> {pokemon.name} </div>
+          </Link>
         ))
       }
 
