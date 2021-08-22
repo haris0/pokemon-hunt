@@ -8,7 +8,9 @@ import {
   ApolloProvider,
   HttpLink,
   InMemoryCache
-} from '@apollo/client'
+} from '@apollo/client';
+import { extendTheme, ChakraProvider } from '@chakra-ui/react';
+import { createBreakpoints } from "@chakra-ui/theme-tools";
 
 const client = new ApolloClient({
   cache: new InMemoryCache(),
@@ -17,11 +19,21 @@ const client = new ApolloClient({
   })
 });
 
+const breakpoints = createBreakpoints({
+  sm: "320px",
+  md: "768px",
+  lg: "960px",
+  xl: "1200px",
+});
+const theme = extendTheme({ breakpoints })
+
 ReactDOM.render(
   <React.StrictMode>
-    <ApolloProvider client={client}>
-      <App />
-    </ApolloProvider>
+    <ChakraProvider theme={theme}>
+      <ApolloProvider client={client}>
+        <App />
+      </ApolloProvider>
+    </ChakraProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );

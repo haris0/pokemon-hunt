@@ -1,11 +1,18 @@
 import React from 'react';
+import { Container } from '@chakra-ui/react';
 
-function Page404() {
+const Page404 = props => {
   return (
-    <div>
+    <Container {...container_style} >
       Page Not Found
-    </div>
+    </Container>
   );
-}
+};
 
 export default Page404;
+
+const container_style = {
+  maxW:"960px",
+  marginTop:"85px",
+  marginBottom:"16px"
+}

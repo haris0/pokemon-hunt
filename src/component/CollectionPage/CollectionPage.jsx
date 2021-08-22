@@ -1,11 +1,18 @@
 import React from 'react';
+import { Container } from '@chakra-ui/react';
 
-function CollectionPage() {
+const CollectionPage = () => {
   return (
-    <div>
+    <Container {...container_style}>
       Collection Page
-    </div>
+    </Container>
   );
-}
+};
 
 export default CollectionPage;
+
+const container_style = {
+  maxW:"960px",
+  marginTop:"85px",
+  marginBottom:"16px"
+}
