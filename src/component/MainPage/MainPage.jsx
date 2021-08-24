@@ -1,7 +1,7 @@
 import React from 'react';
 import { useQuery } from '@apollo/client';
-import {Link} from 'react-router-dom';
-import {GET_POKEMONS} from '../../queries';
+import { Link } from 'react-router-dom';
+import { GET_POKEMONS } from '../../queries';
 import { Container } from '@chakra-ui/react';
 
 const MainPage = () => {

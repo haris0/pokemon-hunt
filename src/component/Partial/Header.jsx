@@ -1,13 +1,17 @@
 import React from "react";
-import {Flex} from "@chakra-ui/react";
+import { Flex, Image } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
+import PokeLogo from "../../assets/PokeLogo.png"
 
 const Header = () => {
   return (
     <Flex {...header_flex}>
       <Flex align="center" mr={5}>
-      <Link to="/">
-        Pokemon Hunt
+        <Link to="/">
+          <Image
+            alt="Poketop"
+            height="1.5rem"
+            src={PokeLogo}/>
         </Link>
       </Flex>
     </Flex>
