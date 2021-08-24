@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { lazy } from 'react';
 import { useParams } from 'react-router-dom';
 import { GET_POKEMON_DET } from "../../queries";
 import { useQuery } from '@apollo/client';
@@ -12,7 +12,11 @@ import { Container,
 import { PokemonColors } from '../../colors';
 import Pokeball from '../../assets/Pokeball.png';
 import PokeEgg from '../../assets/PokeEgg.png';
-import TypeList from './child/TypeList'
+
+const TypeList = lazy(()=> import('./child/TypeList'));
+const WeightHeight = lazy(()=> import('./child/WeightHeight'));
+const StatList = lazy(()=> import('./child/StatList'));
+const MovesTable = lazy(()=> import('./child/MovesTable'));
 
 const DetailPage = () => {
   const pokename = useParams().name;
@@ -54,6 +58,17 @@ const DetailPage = () => {
               {data.pokemon.name}
             </Text>
             <TypeList typeList={data.pokemon.types}></TypeList>
+            <Container {...container_inside}>
+              <WeightHeight 
+                height={data.pokemon.height} 
+                weight={data.pokemon.weight}>
+              </WeightHeight>
+              <Text {...count_text}> {"Owned : -"} </Text>
+              <Text {...section_text}> Stats </Text>
+              <StatList statList={data.pokemon.stats}></StatList>
+              <Text {...section_text}> Moves </Text>
+              <MovesTable movesList={data.pokemon.moves}></MovesTable>
+            </Container>
           </Container>
         </Box>
       }
@@ -93,4 +108,21 @@ const pokemon_name = {
 const container_style = {
   maxW:"960px",
   marginBottom:"100px"
+}
+
+const container_inside = {
+  paddingLeft:"0px",
+  paddingRight:"0px",
+}
+
+const section_text = {
+  fontWeight:"Bold",
+  fontSize:"24px",
+  margin:"20px 5px 5px"
+}
+
+const count_text = {
+  textAlign:"center",
+  marginTop:"15px",
+  fontWeight:"700"
 }
