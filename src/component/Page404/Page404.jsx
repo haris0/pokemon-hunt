@@ -1,18 +1,36 @@
 import React from 'react';
-import { Container } from '@chakra-ui/react';
+import {
+  Box,
+  Text,
+  Image,
+}from '@chakra-ui/react';
+import error404 from '../../assets/error404.png';
 
 const Page404 = () => {
   return (
-    <Container {...container_style} >
-      Page Not Found
-    </Container>
+    <div>
+      <Box textAlign="center" marginTop="85px">
+        <Text {...no_pokemon_text}> Page Not found !
+        <Image {...no_pokemon_img} src={error404}></Image>
+        </Text>
+      </Box>
+    </div>
   );
 };
 
 export default Page404;
 
-const container_style = {
-  maxW:"960px",
-  marginTop:"85px",
-  marginBottom:"16px"
+const no_pokemon_text = {
+  fontSize:"40px",
+  color:"lightgray",
+  lineHeight:"50px",
+  fontWeight:"Bold",
+}
+
+const no_pokemon_img = {
+  maxW:"240px",
+  padding:"50px",
+  display:"block",
+  margin:"auto",
+  alt:"Page Not Found"
 }

@@ -1,8 +1,8 @@
 import React from 'react';
-import {Box, 
-        Image, 
-        Tag, 
-        Text, 
+import { Box, 
+         Image, 
+         Tag, 
+         Text, 
 } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
 import Pokeball from '../../../assets/Pokeball.png';

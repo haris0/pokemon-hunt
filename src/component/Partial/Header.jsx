@@ -1,7 +1,7 @@
-import React from "react";
-import { Flex, Image } from "@chakra-ui/react";
-import { Link } from "react-router-dom";
-import PokeLogo from "../../assets/PokeLogo.png"
+import React from 'react';
+import { Flex, Image } from '@chakra-ui/react';
+import { Link } from 'react-router-dom';
+import PokeLogo from '../../assets/PokeLogo.png';
 
 const Header = () => {
   return (

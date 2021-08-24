@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import { Accordion,
          AccordionItem,
          AccordionButton,
@@ -37,10 +37,6 @@ const MovesTable = ({movesList}) => {
       </Accordion>
     </div>
   );
-};
-
-MovesTable.propTypes = {
-  
 };
 
 export default MovesTable;

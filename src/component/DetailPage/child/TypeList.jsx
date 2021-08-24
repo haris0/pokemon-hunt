@@ -1,8 +1,8 @@
-import React from 'react'
+import React from 'react';
 import {
   Box,
   Badge,
-} from '@chakra-ui/react'
+} from '@chakra-ui/react';
 import {PokemonColors} from "../../../colors";
 
 const TypeList = ({typeList}) => {
@@ -12,8 +12,7 @@ const TypeList = ({typeList}) => {
         {typeList.map(type =>(
           <Badge {...bedge_type}
             bgColor={PokemonColors[type.type.name]}
-            key={type.type.name}
-            >
+            key={type.type.name}>
             {type.type.name}
           </Badge>
         ))}
