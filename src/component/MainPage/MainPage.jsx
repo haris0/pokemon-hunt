@@ -1,8 +1,13 @@
-import React from 'react';
+import React, {lazy} from 'react';
 import { useQuery } from '@apollo/client';
-import { Link } from 'react-router-dom';
 import { GET_POKEMONS } from '../../queries';
-import { Container } from '@chakra-ui/react';
+import { Container,
+         SimpleGrid,
+         Heading,
+         Skeleton,
+} from '@chakra-ui/react';
+
+const CardPokemon = lazy(()=> import('./child/CardPokemon'));
 
 const MainPage = () => {
   const { loading, error, data } = useQuery(GET_POKEMONS, {
@@ -13,9 +18,16 @@ const MainPage = () => {
   });
 
   return (
-    <div>
+    <Container {...container_style} >
+      <Heading {...heading_style}>Wild Pokemon</Heading>
       {loading &&
-        <div>Loading...</div>
+        <SimpleGrid columns={[2, null, 5]} marginTop="30px" spacing="20px">
+          <Skeleton height="100px" />
+          <Skeleton height="100px" />
+          <Skeleton height="100px" />
+          <Skeleton height="100px" />
+          <Skeleton height="100px" />
+        </SimpleGrid>
       }
       {error && 
         <div>
@@ -23,15 +35,15 @@ const MainPage = () => {
         </div>
       }
       {!loading && data &&
-        <Container {...container_style} >
-          {data.pokemons.results.map(pokemon => (
-            <Link to={"/detail/" + pokemon.name} key={pokemon.name}>
-              <div> {pokemon.name} </div>
-            </Link>
-          ))}
-        </Container>
+        <div>
+          <SimpleGrid columns={[2, null, 5]} {...grid_style}>
+            {data.pokemons.results.map(pokemon => (
+              <CardPokemon key={pokemon.name} pokemon={pokemon}></CardPokemon>
+            ))}
+          </SimpleGrid>
+        </div>
       }
-    </div>
+    </Container>
   );
 };
 
@@ -41,4 +53,16 @@ const container_style = {
   maxW:"960px",
   marginTop:"85px",
   marginBottom:"16px"
+}
+
+const heading_style = {
+  as:"h2",
+  color:"#2E3131",
+  textAlign:"center"
+}
+
+const grid_style = {
+  padding:"15px",
+  marginTop:"20px",
+  spacing:"20px"
 }
