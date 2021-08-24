@@ -5,7 +5,7 @@ import {Box,
         Text, 
 } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
-import Pokeball from '../../../assets/Pokeball.png'
+import Pokeball from '../../../assets/Pokeball.png';
 import PokeEgg from '../../../assets/PokeEgg.png';
 
 const CardPokemon = ({ pokemon }) => {

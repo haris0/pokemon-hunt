@@ -1,8 +1,18 @@
 import React from 'react';
-import { useParams } from "react-router-dom";
+import { useParams } from 'react-router-dom';
 import { GET_POKEMON_DET } from "../../queries";
 import { useQuery } from '@apollo/client';
-import { Container } from '@chakra-ui/react';
+import { Container,
+         Skeleton,
+         SkeletonText,
+         Box,
+         Image,
+         Text,
+} from '@chakra-ui/react';
+import { PokemonColors } from '../../colors';
+import Pokeball from '../../assets/Pokeball.png';
+import PokeEgg from '../../assets/PokeEgg.png';
+import TypeList from './child/TypeList'
 
 const DetailPage = () => {
   const pokename = useParams().name;
@@ -10,14 +20,19 @@ const DetailPage = () => {
     variables: {
       name : pokename
     },
-  })
+  });  
 
   return (
     <div>
-      {loading && 
-        <div>
-          Loading...
-        </div>
+      {loading &&
+        <Container {...container_style} marginTop="85px">
+          <Container>
+            <Skeleton height="100px" />
+            <SkeletonText mt="4" noOfLines={4} spacing="4" />
+            <SkeletonText mt="4" noOfLines={4} spacing="4" />
+            <SkeletonText mt="4" noOfLines={4} spacing="4" />
+          </Container>
+        </Container>
       }
       {error && 
         <div>
@@ -25,14 +40,22 @@ const DetailPage = () => {
         </div>
       }
       {!loading && data && 
-        <Container {...container_style}> 
-          <div>
-            Pokemon : {pokename}
-          </div>
-          <div>
-            Height : {data.pokemon.height} and Weight : {data.pokemon.weight}
-          </div>
-        </Container>
+        <Box>
+          <Box
+            {...box_header}
+            bgColor={PokemonColors[data.pokemon.types[0].type.name]}
+            backgroundImage={"url("+Pokeball+")"}/>
+          <Container {...container_style}>
+            <Image
+              {...pokemon_img}
+              src={data.pokemon.sprites.front_default}
+              fallbackSrc={PokeEgg}/> 
+            <Text {...pokemon_name}>
+              {data.pokemon.name}
+            </Text>
+            <TypeList typeList={data.pokemon.types}></TypeList>
+          </Container>
+        </Box>
       }
     </div>
   );
@@ -40,8 +63,34 @@ const DetailPage = () => {
 
 export default DetailPage;
 
+const box_header = {
+  marginTop:"57px",
+  right:"0",
+  width:"100%",
+  height:"150px",
+  backgroundSize:"160px",
+  backgroundPosition:"right",
+  backgroundRepeat:"no-repeat"
+}
+
+const pokemon_img = {
+  display:"block",
+  marginTop:"-150px",
+  marginRight:"auto",
+  marginLeft:"auto",
+  height:"250px",
+  padding:"10px",
+  alt:"Pokemon"
+}
+const pokemon_name = {
+  textAlign:"center",
+  textTransform:"capitalize",
+  fontWeight:"Bold",
+  marginTop:"-50px",
+  fontSize:"32px",
+}
+
 const container_style = {
   maxW:"960px",
-  marginTop:"85px",
-  marginBottom:"16px"
+  marginBottom:"100px"
 }
