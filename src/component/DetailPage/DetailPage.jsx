@@ -17,6 +17,7 @@ const TypeList = lazy(()=> import('./child/TypeList'));
 const WeightHeight = lazy(()=> import('./child/WeightHeight'));
 const StatList = lazy(()=> import('./child/StatList'));
 const MovesTable = lazy(()=> import('./child/MovesTable'));
+const CatchingModal = lazy(()=> import('./child/CatchingModal'));
 
 const DetailPage = () => {
   const pokename = useParams().name;
@@ -24,7 +25,7 @@ const DetailPage = () => {
     variables: {
       name : pokename
     },
-  });  
+  });
 
   return (
     <div>
@@ -42,6 +43,9 @@ const DetailPage = () => {
         <div>
           Error Get Data
         </div>
+      }
+      {!loading && data &&
+        <CatchingModal data={data}/>
       }
       {!loading && data && 
         <Box>
