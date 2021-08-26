@@ -1,4 +1,4 @@
-import React, { lazy } from 'react';
+import React, { lazy, useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { GET_POKEMON_DET } from "../../queries";
 import { useQuery } from '@apollo/client';
@@ -12,6 +12,7 @@ import { Container,
 import { PokemonColors } from '../../colors';
 import Pokeball from '../../assets/Pokeball.png';
 import PokeEgg from '../../assets/PokeEgg.png';
+import { useCountOwnPokemon } from '../../context';
 
 const TypeList = lazy(()=> import('./child/TypeList'));
 const WeightHeight = lazy(()=> import('./child/WeightHeight'));
@@ -26,6 +27,14 @@ const DetailPage = () => {
       name : pokename
     },
   });
+
+  const contextCount = useCountOwnPokemon(pokename);
+  const [count, setCount] = useState();
+
+  useEffect(()=>{
+    setCount(contextCount)
+    window.scrollTo(0, 0)
+  },[contextCount])
 
   return (
     <div>
@@ -67,7 +76,7 @@ const DetailPage = () => {
                 height={data.pokemon.height} 
                 weight={data.pokemon.weight}>
               </WeightHeight>
-              <Text {...count_text}> {"Owned : -"} </Text>
+              <Text {...count_text}> {"Owned : "+ count} </Text>
               <Text {...section_text}> Stats </Text>
               <StatList statList={data.pokemon.stats}></StatList>
               <Text {...section_text}> Moves </Text>
