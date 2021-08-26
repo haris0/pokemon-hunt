@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useReducer } from 'react';
 import {
   Box,
   Image,
@@ -39,42 +39,95 @@ const generateCaught = (nickName, data) => {
   return pekemonCaught;
 }
 
+const catchingReducer = (state, action) => {
+  switch (action.type) {
+    case 'setState': {
+      return {
+        ...state,
+        [action.stateName]: action.payload,
+      };
+    }
+    case 'setDefault': {
+      return {
+        ...state,
+        firsTry: true,
+        success: false,
+        nickName: '',
+        nickNameError: false,
+        nickNameMsg: '',
+      };
+    }
+    case 'nicknameEmpty': {
+      return {
+        ...state,
+        nickNameError: true,
+        nickNameMsg: "Nickname must be filled",
+      };
+    }
+    case 'nicknameExsist': {
+      return {
+        ...state,
+        nickNameError: true,
+        nickNameMsg: "Nickname must be Unique",
+      };
+    }
+    case 'catchingPokemon': {
+      return {
+        ...state,
+        catching: false,
+        firsTry: false,
+        success: !!getRandomItem(),
+      };
+    }
+    default:
+      return state;
+  }
+}
+
+const initialState = {
+  catching: false,
+  firsTry: true,
+  success: false,
+  nickName: '',
+  nickNameError: false,
+  nickNameMsg: '',
+  nickNameExsist: false,
+};
+
 const CatchingModal = ({ data }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-
-  const [catching, setCatching] = useState(false);
-  const [firsTry, setFirsTry] = useState(true);
-  const [success, setSuccess] = useState(false);
-  const [nickName, setNickNaem] = useState("");
-  const [nickNameError, setNickNameError] = useState(false);
-  const [nickNameMsg, setNickNameMsg] = useState("");
-  const [nickNameExsist, setNickNameExsist] = useState(false);
-  const handleChange = (event) => setNickNaem(event.target.value);
+  const [state, dispatch] = useReducer(catchingReducer, initialState);
 
   const catchingPokemon = async() =>{
-    setCatching(true)
+    dispatch({ 
+      type: 'setState', 
+      stateName: 'catching', 
+      payload: true 
+    });
     setTimeout(() => {
-      setCatching(false)
-      setFirsTry(false)
-      setSuccess(!!getRandomItem())
+      dispatch({ type: 'catchingPokemon' });
     }, 4000)
-  }
-
-  const setDefault =()=> {
-    setFirsTry(true)
-    setSuccess(false)
-    setNickNaem("")
-    setNickNameError(false)
-    setNickNameMsg("")
   }
 
   const closeCatching=()=> {
     onClose()
-    setDefault()
+    dispatch({ type: 'setDefault' });
+  }
+
+  const nickNameChange = (even) => {
+    dispatch({ 
+      type: 'setState', 
+      stateName: 'nickName', 
+      payload: even.currentTarget.value,
+    });
   }
 
   const setFalseNickName = () => {
-    setNickNameError(false)
+    dispatch({ 
+      type: 'setState', 
+      stateName: 'nickNameError', 
+      payload: true 
+    });
   }
   
   const toast = useToast()
@@ -88,18 +141,16 @@ const CatchingModal = ({ data }) => {
   }
 
   const savePokemon =()=> {
-    if (nickName === "") {
-      setNickNameError(true)
-      setNickNameMsg("Nickname must be filled")
-    } else if(nickNameExsist){
-      setNickNameError(true)
-      setNickNameMsg("Nickname must be Unique")
+    if (state.nickName === "") {
+      dispatch({type: "nicknameEmpty"});
+    } else if(state.nickNameExsist){
+      dispatch({type: "nicknameExsist"});
     }else{
-      setDefault()
-      const pekemonCaught = generateCaught(nickName, data)
+      dispatch({ type: 'setDefault' });
+      const pekemonCaught = generateCaught(state.nickName, data)
       console.log(pekemonCaught)
       onClose()
-      saveToast(nickName)
+      saveToast(state.nickName)
     }
   }
 
@@ -124,7 +175,7 @@ const CatchingModal = ({ data }) => {
         isCentered>
         <ModalOverlay />
         <ModalContent>
-          {!catching && firsTry &&
+          {!state.catching && state.firsTry &&
             <>
               <ModalHeader {...modal_header}>
                 {"Do You Want ​Catch " + data.pokemon.name + " ?"}
@@ -135,9 +186,9 @@ const CatchingModal = ({ data }) => {
               </ModalFooter>
             </>
           }
-          {!catching && !firsTry &&
+          {!state.catching && !state.firsTry &&
             <>
-              {success &&
+              {state.success &&
                 <>
                   <ModalHeader {...modal_header}>
                     {"Yeey Success to ​Catch " + data.pokemon.name + "!!"}
@@ -148,12 +199,12 @@ const CatchingModal = ({ data }) => {
                     <FormLabel>Give Nickname</FormLabel>
                     <Input
                       placeholder="Input Nickname"
-                      value={nickName}
+                      value={state.nickName}
                       onClick={setFalseNickName}
-                      onChange={handleChange} />
-                    {nickNameError &&
+                      onChange={nickNameChange} />
+                    {state.nickNameError &&
                       <FormHelperText color="red !important" textAlign="left">
-                        {nickNameMsg}
+                        {state.nickNameMsg}
                       </FormHelperText>
                     }
                   </FormControl>
@@ -164,7 +215,7 @@ const CatchingModal = ({ data }) => {
                   </ModalFooter>
                 </>
               }
-              {!success &&
+              {!state.success &&
                 <>
                   <ModalHeader {...modal_header}>
                     {data.pokemon.name + " ran away!! Try again ?"}
@@ -177,7 +228,7 @@ const CatchingModal = ({ data }) => {
               }
             </>
           }
-          {catching &&
+          {state.catching &&
             <>
               <ModalHeader {...modal_header}>
                 {"​Catching " + data.pokemon.name + " !!"}
