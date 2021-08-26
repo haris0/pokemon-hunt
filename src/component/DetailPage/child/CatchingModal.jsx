@@ -1,4 +1,4 @@
-import React, { useReducer } from 'react';
+import React, { useReducer, useEffect } from 'react';
 import {
   Box,
   Image,
@@ -21,6 +21,7 @@ import {
   FormHelperText,
 } from '@chakra-ui/react';
 import PokeballBlue from '../../../assets/PokeballBlue.png';
+import { useMyPokemonList, useAddMyPokemonList} from '../../../context';
 
 const getRandomItem = () => {
   const arr = [1, 0]
@@ -98,6 +99,9 @@ const CatchingModal = ({ data }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [state, dispatch] = useReducer(catchingReducer, initialState);
 
+  const myPokemonList = useMyPokemonList();
+  const addMyPokemon = useAddMyPokemonList();
+
   const catchingPokemon = async() =>{
     dispatch({ 
       type: 'setState', 
@@ -126,7 +130,7 @@ const CatchingModal = ({ data }) => {
     dispatch({ 
       type: 'setState', 
       stateName: 'nickNameError', 
-      payload: true 
+      payload: false, 
     });
   }
   
@@ -140,19 +144,28 @@ const CatchingModal = ({ data }) => {
     })
   }
 
-  const savePokemon =()=> {
+  const collectPokemon =()=> {
     if (state.nickName === "") {
       dispatch({type: "nicknameEmpty"});
     } else if(state.nickNameExsist){
       dispatch({type: "nicknameExsist"});
     }else{
       dispatch({ type: 'setDefault' });
-      const pekemonCaught = generateCaught(state.nickName, data)
-      console.log(pekemonCaught)
-      onClose()
-      saveToast(state.nickName)
+      const pekemonCaught = generateCaught(state.nickName, data);
+      addMyPokemon(pekemonCaught);
+      console.log(pekemonCaught);
+      onClose();
+      saveToast(state.nickName);
     }
   }
+
+  useEffect(() => {
+    dispatch({
+      type: 'setState',
+      stateName: 'nickNameExsist',
+      payload: myPokemonList.some(el => el.nickName === state.nickName),
+    });
+  }, [myPokemonList, state.nickName]);
 
   return (
     <div>
@@ -210,7 +223,7 @@ const CatchingModal = ({ data }) => {
                   </FormControl>
                   </ModalBody>
                   <ModalFooter {...modal_footer}>
-                    <Button {...yes_button} onClick={savePokemon}>Collect</Button>
+                    <Button {...yes_button} onClick={collectPokemon}>Collect</Button>
                     <Button {...no_button} onClick={closeCatching}>Release</Button>
                   </ModalFooter>
                 </>

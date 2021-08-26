@@ -11,6 +11,7 @@ import {
 } from '@apollo/client';
 import { extendTheme, ChakraProvider } from '@chakra-ui/react';
 import { createBreakpoints } from "@chakra-ui/theme-tools";
+import MyPokemonContexProvider from './context'
 
 const client = new ApolloClient({
   cache: new InMemoryCache(),
@@ -31,7 +32,9 @@ ReactDOM.render(
   <React.StrictMode>
     <ChakraProvider theme={theme}>
       <ApolloProvider client={client}>
-        <App />
+        <MyPokemonContexProvider>
+          <App />
+        </MyPokemonContexProvider>
       </ApolloProvider>
     </ChakraProvider>
   </React.StrictMode>,
