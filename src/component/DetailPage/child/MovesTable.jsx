@@ -1,14 +1,15 @@
 import React from 'react';
-import { Accordion,
-         AccordionItem,
-         AccordionButton,
-         AccordionPanel,
-         AccordionIcon,
-         Box,
-         Table,
-         Tbody, 
-         Tr,
-         Td,
+import { 
+  Accordion,
+  AccordionItem,
+  AccordionButton,
+  AccordionPanel,
+  AccordionIcon,
+  Box,
+  Table,
+  Tbody, 
+  Tr,
+  Td,
 } from '@chakra-ui/react';
 
 const MovesTable = ({movesList}) => {

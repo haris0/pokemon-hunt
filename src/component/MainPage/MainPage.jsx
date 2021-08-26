@@ -21,7 +21,7 @@ const MainPage = () => {
     <Container {...container_style} >
       <Heading {...heading_style}>Wild Pokemon</Heading>
       {loading &&
-        <SimpleGrid columns={[2, null, 5]} marginTop="30px" spacing="20px">
+        <SimpleGrid columns={{sm: 2, md: 5}} marginTop="30px" spacing="20px">
           <Skeleton height="100px" />
           <Skeleton height="100px" />
           <Skeleton height="100px" />
@@ -36,7 +36,7 @@ const MainPage = () => {
       }
       {!loading && data &&
         <div>
-          <SimpleGrid columns={[2, null, 5]} {...grid_style}>
+          <SimpleGrid columns={{sm: 2, md: 5}} {...grid_style}>
             {data.pokemons.results.map(pokemon => (
               <CardPokemon key={pokemon.name} pokemon={pokemon}></CardPokemon>
             ))}
@@ -51,7 +51,7 @@ export default MainPage;
 
 const container_style = {
   maxW:"960px",
-  marginTop:"85px",
+  marginTop:"83px",
   marginBottom:"16px"
 }
 

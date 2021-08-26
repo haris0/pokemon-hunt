@@ -10,7 +10,7 @@ const Header = () => {
         <Link to="/">
           <Image
             alt="Poketop"
-            height="1.5rem"
+            height="1.25rem"
             src={PokeLogo}/>
         </Link>
       </Flex>

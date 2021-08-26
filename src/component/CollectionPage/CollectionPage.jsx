@@ -1,10 +1,11 @@
 import React, { lazy, useEffect } from 'react';
-import { Container,
-         Heading,
-         Box,
-         Text,
-         Image,
-         SimpleGrid,
+import { 
+  Container,
+  Heading,
+  Box,
+  Text,
+  Image,
+  SimpleGrid,
 } from '@chakra-ui/react';
 import { useMyPokemonList } from '../../context';
 import PokeballBlue from '../../assets/PokeballBlue.png'
@@ -22,7 +23,7 @@ const CollectionPage = () => {
     <Container {...container_style}>
       <Heading {...heading_style}>My Pokemon</Heading>
       {myPokemonList.length>0 &&
-        <SimpleGrid columns={[2, null, 5]} {...grid_style}>
+        <SimpleGrid columns={{sm: 2, md: 5}} {...grid_style}>
           {myPokemonList.map(pokemon => (
             <CardPokemon key={pokemon.nickName} pokemon={pokemon}></CardPokemon>
           ))}
@@ -46,7 +47,7 @@ export default CollectionPage;
 
 const container_style = {
   maxW:"960px",
-  marginTop:"85px",
+  marginTop:"83px",
   marginBottom:"16px"
 }
 

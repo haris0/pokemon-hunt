@@ -2,12 +2,13 @@ import React, { lazy, useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { GET_POKEMON_DET } from "../../queries";
 import { useQuery } from '@apollo/client';
-import { Container,
-         Skeleton,
-         SkeletonText,
-         Box,
-         Image,
-         Text,
+import { 
+  Container,
+  Skeleton,
+  SkeletonText,
+  Box,
+  Image,
+  Text,
 } from '@chakra-ui/react';
 import { PokemonColors } from '../../colors';
 import Pokeball from '../../assets/Pokeball.png';
@@ -92,7 +93,7 @@ const DetailPage = () => {
 export default DetailPage;
 
 const box_header = {
-  marginTop:"57px",
+  marginTop:"3.3rem",
   right:"0",
   width:"100%",
   height:"150px",
