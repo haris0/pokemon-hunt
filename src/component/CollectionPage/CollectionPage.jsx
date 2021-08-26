@@ -16,7 +16,7 @@ const CollectionPage = () => {
   const myPokemonList = useMyPokemonList();
 
   useEffect(() => {
-    window.scrollTo(0, 0)
+    window.scrollTo(0, 0);
   }, [myPokemonList]);
 
   return (

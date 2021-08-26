@@ -1,21 +1,59 @@
-import React, {lazy} from 'react';
+import React, {lazy, useEffect, useState} from 'react';
 import { useQuery } from '@apollo/client';
 import { GET_POKEMONS } from '../../queries';
-import { Container,
-         SimpleGrid,
-         Heading,
-         Skeleton,
+import { 
+  Container,
+  SimpleGrid,
+  Heading,
+  Skeleton,
+  Flex,
+  Box,
+  IconButton,
+  Spacer,
 } from '@chakra-ui/react';
+import { ArrowDownIcon, ArrowUpIcon} from '@chakra-ui/icons';
+import { useMyPokemonList } from '../../context';
 
 const CardPokemon = lazy(()=> import('./child/CardPokemon'));
+const CollectionButton = lazy(()=> import('./child/CollectionButton'));
+
+const scrollTop = () =>{
+  window.scrollTo({top: 0, behavior: 'smooth'});
+};
 
 const MainPage = () => {
-  const { loading, error, data } = useQuery(GET_POKEMONS, {
+  const { loading, error, data, fetchMore } = useQuery(GET_POKEMONS, {
     variables: {
         limit: 20,
         offset: 1,
       },
   });
+
+  const handleLoadMore =()=>{
+    fetchMore({
+      variables: { 
+        limit: 20,
+        offset: data.pokemons.nextOffset,
+      },
+      updateQuery: (previousResult, { fetchMoreResult }) => {
+        console.log(previousResult)
+        console.log(fetchMoreResult)
+        fetchMoreResult.pokemons.results = [
+          ...previousResult.pokemons.results,
+          ...fetchMoreResult.pokemons.results
+        ];
+        return fetchMoreResult;
+      },
+    })
+  }
+
+  const myPokemonList = useMyPokemonList();
+  const [myPokemonCount, setMyPokemonCount] = useState("");
+
+  useEffect(() => {
+    setMyPokemonCount(myPokemonList.length)
+    window.scrollTo(0, 0);
+  },[myPokemonList]);
 
   return (
     <Container {...container_style} >
@@ -40,8 +78,28 @@ const MainPage = () => {
             {data.pokemons.results.map(pokemon => (
               <CardPokemon key={pokemon.name} pokemon={pokemon}></CardPokemon>
             ))}
+            <CollectionButton count={myPokemonCount}/>
           </SimpleGrid>
         </div>
+      }
+      {!loading && data &&
+        <Flex>
+          <Box>
+            <IconButton {...icon_style} 
+              marginLeft="10px"
+              aria-label="Down"
+              icon={<ArrowDownIcon w={6} h={6}/>}
+              onClick={handleLoadMore}></IconButton>
+          </Box>
+          <Spacer />
+          <Box>
+            <IconButton {...icon_style}
+              marginRight="10px"
+              aria-label="Up"
+              icon={<ArrowUpIcon w={6} h={6}/>}
+              onClick={scrollTop}></IconButton>
+          </Box>
+        </Flex>
       }
     </Container>
   );
@@ -65,4 +123,13 @@ const grid_style = {
   padding:"15px",
   marginTop:"20px",
   spacing:"20px"
+}
+
+const icon_style = {
+  bg:"#3DB2FF",
+  boxShadow:"base",
+  colorScheme:"teal",
+  borderRadius:"full",
+  width:"50px",
+  height:"50px",
 }
