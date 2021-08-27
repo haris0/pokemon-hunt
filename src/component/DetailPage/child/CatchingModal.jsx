@@ -153,7 +153,6 @@ const CatchingModal = ({ data }) => {
       dispatch({ type: 'setDefault' });
       const pekemonCaught = generateCaught(state.nickName, data);
       addMyPokemon(pekemonCaught);
-      console.log(pekemonCaught);
       onClose();
       saveToast(state.nickName);
     }

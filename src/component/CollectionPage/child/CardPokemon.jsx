@@ -53,7 +53,7 @@ const CardPokemon = ({pokemon}) => {
       <Modal 
         blockScrollOnMount={false} 
         onClose={onClose} 
-        size="sm" 
+        size="xs"
         isOpen={isOpen} 
         isCentered>
         <ModalOverlay />

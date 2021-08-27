@@ -5,7 +5,6 @@ import { useQuery } from '@apollo/client';
 import { 
   Container,
   Skeleton,
-  SkeletonText,
   Box,
   Image,
   Text,
@@ -31,34 +30,30 @@ const DetailPage = () => {
 
   const contextCount = useCountOwnPokemon(pokename);
   const [count, setCount] = useState();
-  const [frontBackImg, setFrontBackImg] = useState('front_default');
 
   useEffect(()=>{
     setCount(contextCount)
     window.scrollTo(0, 0)
   },[contextCount])
 
-  useEffect(()=>{
-    let isMounted = true;
-    setTimeout(() => {
-      if (frontBackImg === 'front_default') {
-        if (isMounted) setFrontBackImg('back_default');
-      } else {
-        if (isMounted) setFrontBackImg('front_default');
-      }
-    }, 3500);
-    return () => { isMounted = false };
-  },[frontBackImg])
-
   return (
     <div>
-      {loading &&
+      {loading && !data &&
         <Container {...container_style} marginTop="85px">
           <Container>
             <Skeleton height="100px" />
-            <SkeletonText mt="4" noOfLines={4} spacing="4" />
-            <SkeletonText mt="4" noOfLines={4} spacing="4" />
-            <SkeletonText mt="4" noOfLines={4} spacing="4" />
+            <Skeleton height="10px" marginTop="15px"/>
+            <Skeleton height="10px" marginTop="15px"/>
+            <Skeleton height="10px" marginTop="15px"/>
+            <Skeleton height="10px" marginTop="15px"/>
+            <Skeleton height="10px" marginTop="15px"/>
+            <Skeleton height="10px" marginTop="15px" width="80%"/>
+            <Skeleton height="10px" marginTop="15px"/>
+            <Skeleton height="10px" marginTop="15px"/>
+            <Skeleton height="10px" marginTop="15px"/>
+            <Skeleton height="10px" marginTop="15px"/>
+            <Skeleton height="10px" marginTop="15px"/>
+            <Skeleton height="10px" marginTop="15px" width="80%"/>
           </Container>
         </Container>
       }
@@ -79,7 +74,7 @@ const DetailPage = () => {
           <Container {...container_style}>
             <Image
               {...pokemon_img}
-              src={data.pokemon.sprites[frontBackImg]}
+              src={data.pokemon.sprites.front_default}
               fallbackSrc={PokeEgg}/> 
             <Text {...pokemon_name}>
               {data.pokemon.name}
