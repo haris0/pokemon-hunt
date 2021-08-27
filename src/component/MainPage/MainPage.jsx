@@ -131,5 +131,4 @@ const icon_style = {
   borderRadius:"full",
   width:"50px",
   height:"50px",
-  marginTop: "-20px",
 }

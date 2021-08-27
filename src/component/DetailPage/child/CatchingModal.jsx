@@ -137,7 +137,7 @@ const CatchingModal = ({ data }) => {
   const toast = useToast()
   const saveToast =(nickName)=> {
     toast({
-      position: "top-right",
+      position: "bottom",
       title: nickName + " Saved",
       status: "info",
       duration: 3000,
@@ -183,7 +183,7 @@ const CatchingModal = ({ data }) => {
       <Modal 
         blockScrollOnMount={false} 
         onClose={onClose} 
-        size="sm" 
+        size="xs" 
         isOpen={isOpen} 
         isCentered>
         <ModalOverlay />
