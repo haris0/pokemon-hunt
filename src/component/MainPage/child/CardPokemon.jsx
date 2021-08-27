@@ -8,8 +8,11 @@ import {
 import { Link } from 'react-router-dom';
 import Pokeball from '../../../assets/Pokeball.png';
 import PokeEgg from '../../../assets/PokeEgg.png';
+import { useCountOwnPokemon } from '../../../context';
 
 const CardPokemon = ({ pokemon }) => {
+  const countOwned = useCountOwnPokemon(pokemon.name);
+
   return (
     <Link to={"/detail/" + pokemon.name} key={pokemon.name}>
       <Box
@@ -25,7 +28,7 @@ const CardPokemon = ({ pokemon }) => {
         <Box>
           <Tag {...tag_owned}>
             <Text {...owned_text}>
-              {"Owened : -"}
+              {`Owened : ${countOwned}`}
             </Text>
           </Tag>
         </Box>

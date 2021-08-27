@@ -1,4 +1,4 @@
-import React, { lazy, useEffect } from 'react';
+import React, { lazy, useEffect, useState } from 'react';
 import { 
   Container,
   Heading,
@@ -6,14 +6,34 @@ import {
   Text,
   Image,
   SimpleGrid,
+  InputGroup,
+  InputRightElement,
+  Input,
 } from '@chakra-ui/react';
 import { useMyPokemonList } from '../../context';
+import { Search2Icon } from '@chakra-ui/icons';
 import PokeballBlue from '../../assets/PokeballBlue.png'
 
 const CardPokemon = lazy(()=> import('./child/CardPokemon'));
 
 const CollectionPage = () => {
   const myPokemonList = useMyPokemonList();
+
+  const [keywords, setKeywords] = useState("");
+  const [filterdMyPokemon, setFilterdMyPokemon] = useState(myPokemonList);
+
+  const handleKeywordsChange = (event) => {
+    let val = event.target.value
+    setKeywords(val);
+    if (val === "") {
+      setFilterdMyPokemon(myPokemonList);
+    } else {
+      setFilterdMyPokemon(
+        myPokemonList.filter(
+          (pokemon) => pokemon.name.includes(val.toLowerCase()) || pokemon.nickName.includes(val.toLowerCase()))
+        )
+    }
+  };
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -23,11 +43,24 @@ const CollectionPage = () => {
     <Container {...container_style}>
       <Heading {...heading_style}>My Pokemon</Heading>
       {myPokemonList.length>0 &&
-        <SimpleGrid columns={{sm: 2, md: 5}} {...grid_style}>
-          {myPokemonList.map(pokemon => (
-            <CardPokemon key={pokemon.nickName} pokemon={pokemon}></CardPokemon>
-          ))}
-        </SimpleGrid>
+        <>
+          <InputGroup {...input_style}>
+            <InputRightElement
+              pointerEvents="none"
+              children={<Search2Icon color="gray.300" />}
+            />
+            <Input 
+              type="tel" 
+              placeholder="Serch Your Pokemon"
+              value={keywords}
+              onChange={handleKeywordsChange} />
+          </InputGroup>
+          <SimpleGrid columns={{sm: 2, md: 5}} {...grid_style}>
+            {filterdMyPokemon.map(pokemon => (
+              <CardPokemon key={pokemon.nickName} pokemon={pokemon}></CardPokemon>
+            ))}
+          </SimpleGrid>
+        </>
       }
       {myPokemonList.length<=0 &&
         <>
@@ -76,4 +109,10 @@ const no_pokemon_img = {
   display:"block",
   margin:"auto",
   alt:"No Pokemon"
+}
+
+const input_style = {
+  marginTop:"2rem",
+  marginLeft:"1rem",
+  marginRight:"1rem",
 }
