@@ -3,11 +3,11 @@
 This app show a list of Pokemon, in the details page of each pokemon you can catch and collect them, you can catch the same pokemon multiple times and give unique nicknames. And you can see yout collected Pokemon on my pokemon page. This app uses data from [graphql-pokeapi](https://github.com/mazipan/graphql-pokeapi). You can check this app demo on [Pokemon-Hunt](https://poke-hunt.netlify.app/).
 
 ## Preview
-![page1](./Preview1.png)
+![page1](./preview1.png)
 
-![page2](./Preview2.png)  
+![page2](./preview2.png)  
 
-![page3](./Preview3.png)
+![page3](./preview3.png)
 
 ## Build Setup
 In the project directory, you can run:
