@@ -8,9 +8,28 @@ import {
 import Header from './component/Partial/Header';
 
 const MainPage = lazy(() => import('./component/MainPage/MainPage'));
-const DefaultPage = lazy(() => import('./component/DetailPage/DetailPage'));
+const DetailPage = lazy(() => import('./component/DetailPage/DetailPage'));
 const CollectionPage = lazy(() => import('./component/CollectionPage/CollectionPage'));
 const Page404 = lazy(() => import('./component/Page404/Page404'));
+
+const routes = [
+  {
+    path: "/",
+    component: MainPage,
+  },
+  {
+    path: "/detail/:name",
+    component: DetailPage,
+  },
+  {
+    path: "/collection",
+    component: CollectionPage,
+  },
+  {
+    path: "/404",
+    component: Page404,
+  },
+]
 
 function App() {
   return (
@@ -18,10 +37,9 @@ function App() {
       <Header />
       <Suspense fallback={<></>}>
         <Switch>
-          <Route exact path="/" component={MainPage}/>
-          <Route exact path="/detail/:name" children={<DefaultPage />}/>
-          <Route exact path="/collection" component={CollectionPage}/>
-          <Route exact path="/404" component={Page404}/>
+          {routes.map((route, index) => (
+            <Route exact key={index} {...route}/>
+          ))}
           <Redirect path="*" to="/404"/>
         </Switch>
       </Suspense>
