@@ -54,7 +54,7 @@ const pokemon_button = {
 
 const count_box = {
   marginLeft:"10px",
-  lineHeight:"26px",
+  lineHeight:"1.6rem",
   width:"25px",
   height:"25px",
   bgColor:"#2E3131",

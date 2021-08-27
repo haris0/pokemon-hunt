@@ -1,4 +1,4 @@
-import React, { lazy, useState } from 'react';
+import React, { lazy, useState, useEffect } from 'react';
 import { 
   Container,
   Heading,
@@ -35,6 +35,10 @@ const CollectionPage = () => {
         ))
     }
   };
+
+  useEffect(() => {
+    setFilterdMyPokemon(myPokemonList)
+  }, [myPokemonList]);
 
   return (
     <Container {...container_style}>
@@ -95,7 +99,7 @@ const grid_style = {
 }
 
 const no_pokemon_text = {
-  fontSize:"40px",
+  fontSize:"35px",
   color:"lightgray",
   lineHeight:"50px",
   fontWeight:"Bold",
