@@ -16,7 +16,7 @@ import {
   Button,
   useDisclosure,
 } from '@chakra-ui/react';
-import { useRemoveMyPokemonList } from '../../../context'
+import { useRemoveMyPokemonList } from '../../../context';
 
 const CardPokemon = ({pokemon}) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
