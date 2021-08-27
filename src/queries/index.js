@@ -25,6 +25,7 @@ export const GET_POKEMON_DET = gql`
       height
       weight
       sprites {
+        back_default
         front_default
       }
       moves {

@@ -51,8 +51,7 @@ const MainPage = () => {
   const [myPokemonCount, setMyPokemonCount] = useState("");
 
   useEffect(() => {
-    setMyPokemonCount(myPokemonList.length)
-    window.scrollTo(0, 0);
+    setMyPokemonCount(myPokemonList.length);
   },[myPokemonList]);
 
   return (
@@ -128,8 +127,9 @@ const grid_style = {
 const icon_style = {
   bg:"#3DB2FF",
   boxShadow:"base",
-  colorScheme:"teal",
+  colorScheme:"blue",
   borderRadius:"full",
   width:"50px",
   height:"50px",
+  marginTop: "-20px",
 }

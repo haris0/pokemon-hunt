@@ -1,4 +1,4 @@
-import React, { lazy, useEffect, useState } from 'react';
+import React, { lazy, useState } from 'react';
 import { 
   Container,
   Heading,
@@ -30,14 +30,11 @@ const CollectionPage = () => {
     } else {
       setFilterdMyPokemon(
         myPokemonList.filter(
-          (pokemon) => pokemon.name.includes(val.toLowerCase()) || pokemon.nickName.includes(val.toLowerCase()))
-        )
+          (pokemon) => pokemon.name.toLowerCase().includes(val.toLowerCase()) 
+                    || pokemon.nickName.toLowerCase().includes(val.toLowerCase())
+        ))
     }
   };
-
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [myPokemonList]);
 
   return (
     <Container {...container_style}>
@@ -47,17 +44,18 @@ const CollectionPage = () => {
           <InputGroup {...input_style}>
             <InputRightElement
               pointerEvents="none"
+              paddingRight="2rem"
               children={<Search2Icon color="gray.300" />}
             />
             <Input 
               type="tel" 
-              placeholder="Serch Your Pokemon"
+              placeholder="Search By Name or Nickname"
               value={keywords}
               onChange={handleKeywordsChange} />
           </InputGroup>
           <SimpleGrid columns={{sm: 2, md: 5}} {...grid_style}>
             {filterdMyPokemon.map(pokemon => (
-              <CardPokemon key={pokemon.nickName} pokemon={pokemon}></CardPokemon>
+                <CardPokemon key={pokemon.nickName} pokemon={pokemon}></CardPokemon>
             ))}
           </SimpleGrid>
         </>
@@ -113,6 +111,6 @@ const no_pokemon_img = {
 
 const input_style = {
   marginTop:"2rem",
-  marginLeft:"1rem",
-  marginRight:"1rem",
+  paddingLeft:"1rem",
+  paddingRight:"1rem",
 }

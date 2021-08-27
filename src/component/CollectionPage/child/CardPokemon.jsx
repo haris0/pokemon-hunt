@@ -22,7 +22,6 @@ const CardPokemon = ({pokemon}) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const removeMyPokemon = useRemoveMyPokemonList();
 
-
   return (
     <div data-testid="myPokemonCard">
       <Box
