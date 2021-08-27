@@ -11,7 +11,8 @@ import {
 } from '@apollo/client';
 import { extendTheme, ChakraProvider } from '@chakra-ui/react';
 import { createBreakpoints } from "@chakra-ui/theme-tools";
-import MyPokemonContexProvider from './context'
+import MyPokemonContexProvider from './context';
+import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 
 const client = new ApolloClient({
   cache: new InMemoryCache(),
@@ -41,4 +42,5 @@ ReactDOM.render(
   document.getElementById('root')
 );
 
+serviceWorkerRegistration.register();
 reportWebVitals();
