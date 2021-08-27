@@ -5,7 +5,7 @@ import PokeLogo from '../../assets/PokeLogo.png';
 
 const Header = () => {
   return (
-    <Flex {...header_flex} z>
+    <Flex {...header_flex}>
       <Flex align="center" mr={5}>
         <Link to="/">
           <Image

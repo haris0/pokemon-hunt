@@ -31,11 +31,24 @@ const DetailPage = () => {
 
   const contextCount = useCountOwnPokemon(pokename);
   const [count, setCount] = useState();
+  const [frontBackImg, setFrontBackImg] = useState('front_default');
 
   useEffect(()=>{
     setCount(contextCount)
     window.scrollTo(0, 0)
   },[contextCount])
+
+  useEffect(()=>{
+    let isMounted = true;
+    setTimeout(() => {
+      if (frontBackImg === 'front_default') {
+        if (isMounted) setFrontBackImg('back_default');
+      } else {
+        if (isMounted) setFrontBackImg('front_default');
+      }
+    }, 3500);
+    return () => { isMounted = false };
+  },[frontBackImg])
 
   return (
     <div>
@@ -66,7 +79,7 @@ const DetailPage = () => {
           <Container {...container_style}>
             <Image
               {...pokemon_img}
-              src={data.pokemon.sprites.front_default}
+              src={data.pokemon.sprites[frontBackImg]}
               fallbackSrc={PokeEgg}/> 
             <Text {...pokemon_name}>
               {data.pokemon.name}
