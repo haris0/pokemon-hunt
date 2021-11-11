@@ -20,7 +20,7 @@ import {
   Input,
   FormHelperText,
 } from '@chakra-ui/react';
-import PokeballBlue from '../../../assets/PokeballBlue.png';
+import PokeballBlue from '../../../assets/PokeballGreen.png';
 import { useMyPokemonList, useAddMyPokemonList} from '../../../context';
 
 const getRandomItem = () => {
@@ -249,7 +249,7 @@ const CatchingModal = ({ data }) => {
                 <CircularProgress 
                   marginTop="15px" 
                   isIndeterminate 
-                  color="blue.300" />
+                  color="teal.300" />
                 <Text marginTop="2rem">
                   Please Wait!!
                 </Text>
@@ -301,7 +301,7 @@ const yes_button = {
   margin:"10px",
   width:"100px",
   color:"white",
-  colorScheme:"blue"
+  colorScheme:"teal"
 }
 
 const no_button = {

@@ -125,9 +125,9 @@ const grid_style = {
 }
 
 const icon_style = {
-  bg:"#3DB2FF",
+  bg:"#23CBA7",
   boxShadow:"base",
-  colorScheme:"blue",
+  colorScheme:"teal",
   borderRadius:"full",
   width:"50px",
   height:"50px",

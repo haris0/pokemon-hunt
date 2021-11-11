@@ -12,7 +12,7 @@ import {
 } from '@chakra-ui/react';
 import { useMyPokemonList } from '../../context';
 import { Search2Icon } from '@chakra-ui/icons';
-import PokeballBlue from '../../assets/PokeballBlue.png'
+import PokeballBlue from '../../assets/PokeballGreen.png'
 
 const CardPokemon = lazy(()=> import('./child/CardPokemon'));
 

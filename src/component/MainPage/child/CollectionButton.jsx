@@ -44,9 +44,9 @@ const footer_flex = {
 }
 
 const pokemon_button = {
-  bg:"#3DB2FF",
+  bg:"#23CBA7",
   boxShadow:"base",
-  colorScheme:"blue",
+  colorScheme:"teal",
   borderRadius:"full",
   height: "unset",
   padding: "13px 16px"

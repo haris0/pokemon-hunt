@@ -144,7 +144,7 @@ const yes_button = {
   margin:"10px",
   width:"100px",
   color:"white",
-  colorScheme:"blue"
+  colorScheme:"teal"
 }
 
 const no_button = {
