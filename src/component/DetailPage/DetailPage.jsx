@@ -28,13 +28,22 @@ const DetailPage = () => {
     },
   });
 
-  const contextCount = useCountOwnPokemon(pokename);
-  const [count, setCount] = useState();
+  const countOwned = useCountOwnPokemon(pokename);
+  const [imgShow, setImgShow] = useState('front_default');
+
+  useEffect(() => {
+    let timer = setTimeout(() => {
+      imgShow === 'front_default' ? setImgShow('back_default') : setImgShow('front_default');
+    }, 3000);
+
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [imgShow])
 
   useEffect(()=>{
-    setCount(contextCount)
     window.scrollTo(0, 0)
-  },[contextCount])
+  }, [])
 
   return (
     <div>
@@ -74,7 +83,7 @@ const DetailPage = () => {
           <Container {...container_style}>
             <Image
               {...pokemon_img}
-              src={data.pokemon.sprites.front_default}
+              src={data.pokemon.sprites[imgShow]}
               fallbackSrc={PokeEgg}/> 
             <Text {...pokemon_name}>
               {data.pokemon.name}
@@ -85,7 +94,7 @@ const DetailPage = () => {
                 height={data.pokemon.height} 
                 weight={data.pokemon.weight}>
               </WeightHeight>
-              <Text {...count_text}> {"Owned : "+ count} </Text>
+              <Text {...count_text}> {"Owned : "+ countOwned} </Text>
               <Text {...section_text}> Stats </Text>
               <StatList statList={data.pokemon.stats}></StatList>
               <Text {...section_text}> Moves </Text>

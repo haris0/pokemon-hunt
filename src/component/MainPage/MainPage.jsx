@@ -1,4 +1,4 @@
-import React, {lazy, useEffect, useState} from 'react';
+import React, { lazy } from 'react';
 import { useQuery } from '@apollo/client';
 import { GET_POKEMONS } from '../../queries';
 import { 
@@ -48,11 +48,6 @@ const MainPage = () => {
   }
 
   const myPokemonList = useMyPokemonList();
-  const [myPokemonCount, setMyPokemonCount] = useState("");
-
-  useEffect(() => {
-    setMyPokemonCount(myPokemonList.length);
-  },[myPokemonList]);
 
   return (
     <Container {...container_style} >
@@ -77,7 +72,7 @@ const MainPage = () => {
             {data.pokemons.results.map(pokemon => (
               <CardPokemon key={pokemon.name} pokemon={pokemon}></CardPokemon>
             ))}
-            <CollectionButton count={myPokemonCount}/>
+            <CollectionButton count={myPokemonList.length}/>
           </SimpleGrid>
         </div>
       }
