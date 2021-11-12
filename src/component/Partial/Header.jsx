@@ -33,5 +33,5 @@ const header_flex = {
   bg:"white",
   boxShadow:"lg",
   marginBottom:"15px",
-  zIndex: "9999",
+  zIndex: "999",
 }

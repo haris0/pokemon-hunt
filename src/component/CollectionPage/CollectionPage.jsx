@@ -40,6 +40,10 @@ const CollectionPage = () => {
     setFilterdMyPokemon(myPokemonList)
   }, [myPokemonList]);
 
+  useEffect(()=>{
+    window.scrollTo(0, 0)
+  }, [])
+
   return (
     <Container {...container_style}>
       <Heading {...heading_style}>My Pokemon</Heading>
